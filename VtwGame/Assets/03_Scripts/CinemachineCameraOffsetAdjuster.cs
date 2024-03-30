@@ -6,20 +6,19 @@ public class CinemachineCameraOffsetAdjuster : MonoBehaviour
     public CinemachineVirtualCamera cinemachineCamera;
     public Transform playerTransform;
     public Rigidbody2D playerRigidbody;
-    public float smoothTime = 0.5f; // Dauer des Übergangs für den Offset
-    public float maxFallingOffsetY = -5f; // Maximale zusätzliche Offset-Anpassung nach unten, wenn der Spieler fällt
-    public float maxFallSpeed = -10f; // Geschwindigkeit, bei der der maximale Offset erreicht wird
-    public float fallDelay = 0.4f; // Verzögerung, bevor der Offset angepasst wird
-    public float fixedHorizontalOffset = 1f; // Fester horizontaler Offset
+    public float smoothTime = 0.5f;
+    public float maxFallingOffsetY = -5f;
+    public float maxFallSpeed = -10f;
+    public float fallDelay = 0.4f;
+    public float fixedHorizontalOffset = 1f;
 
-    private Vector3 offsetVelocity = Vector3.zero; // Wird von SmoothDamp verwendet für Offset-Anpassungen
-    private float originalOffsetY; // Ursprünglicher vertikaler Offset
-    private float fallingTime = 0; // Wie lange der Spieler schon fällt
-    private bool isFalling = false; // Ob der Spieler fällt
+    private Vector3 offsetVelocity = Vector3.zero;
+    private float originalOffsetY;
+    private float fallingTime = 0;
+    private bool isFalling = false;
 
     private void Start()
     {
-        // Initialisiere den ursprünglichen vertikalen Offset
         originalOffsetY = cinemachineCamera.GetCinemachineComponent<CinemachineFramingTransposer>().m_TrackedObjectOffset.y;
     }
 
@@ -62,7 +61,6 @@ public class CinemachineCameraOffsetAdjuster : MonoBehaviour
             targetOffsetY = Mathf.Lerp(originalOffsetY, originalOffsetY + maxFallingOffsetY, speedFactor);
         }
 
-        // Anwenden von SmoothDamp für sanften Übergang zum neuen Offset
         Vector3 targetOffset = new Vector3(targetOffsetX, targetOffsetY, currentOffset.z);
         Vector3 newOffset = Vector3.SmoothDamp(currentOffset, targetOffset, ref offsetVelocity, smoothTime);
 
