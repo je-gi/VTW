@@ -11,14 +11,14 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Light
+  - Ground
+  - playableground
+  - playablewall
+  - passable
+  - climbable
+  - bouncy
   - 
   - 
   - 
@@ -42,11 +42,14 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Background
-    uniqueID: 2393160255
+    uniqueID: 2068110741
+    locked: 0
+  - name: Wall
+    uniqueID: 1312418377
+    locked: 0
+  - name: Light
+    uniqueID: 3000398717
     locked: 0
   - name: Player
-    uniqueID: 648945807
-    locked: 0
-  - name: Foreground
-    uniqueID: 2641573111
+    uniqueID: 2393776615
     locked: 0
