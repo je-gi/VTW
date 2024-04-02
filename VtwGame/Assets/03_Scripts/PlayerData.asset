@@ -18,7 +18,7 @@ MonoBehaviour:
   BufferedJumpTime: 0.2
   CoyoteTime: 0.08
   wallJumpForce: 30
-  bounceForce: 50
+  bounceForce: 10
   AllowDash: 1
   DashVelocity: 50
   DashDuration: 0.2

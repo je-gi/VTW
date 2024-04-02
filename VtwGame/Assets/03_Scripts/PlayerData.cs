@@ -14,7 +14,7 @@ public class PlayerData : ScriptableObject
     public float wallJumpForce = 30f;
 
     [Header("Bounce")]
-    public float bounceForce = 50f;
+    public float bounceForce = 30f;
 
     [Header("Dash")]
     public bool AllowDash = true;

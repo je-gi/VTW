@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private bool climbInput = false;
     private bool isDashing;
     private bool canDash = true;
+    private bool isOnBouncySurface = false;
     private float jumpBufferCounter = 0f;
     private float coyoteTimeCounter = 0f;
     private float horizontalInput = 0f;
@@ -72,14 +73,25 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
+{
+    if (collision.gameObject.layer == LayerMask.NameToLayer("bouncy"))
     {
-        if (collision.gameObject.layer == LayerMask.NameToLayer("bouncy")) Bounce();
+        isOnBouncySurface = true;
     }
+    else
+    {
+        isOnBouncySurface = false;
+    }
+}
 
-    private void Bounce()
+private void OnCollisionExit2D(Collision2D collision)
+{
+    if (collision.gameObject.layer == LayerMask.NameToLayer("bouncy"))
     {
-        rb.velocity = new Vector2(rb.velocity.x, playerData.bounceForce);
+        isOnBouncySurface = false;
     }
+}
+
 
     private void AttemptJump()
     {
@@ -153,14 +165,21 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void Jump()
+{
+    if ((jumpBufferCounter > 0f || coyoteTimeCounter > 0f) && isGrounded)
     {
-        if ((jumpBufferCounter > 0f || coyoteTimeCounter > 0f) && isGrounded)
+        float jumpForce = playerData.JumpPower;
+
+        if (isOnBouncySurface)
         {
-            rb.velocity = new Vector2(rb.velocity.x, playerData.JumpPower);
-            jumpBufferCounter = 0f;
-            coyoteTimeCounter = 0f;
+            jumpForce += playerData.bounceForce;
         }
+
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        jumpBufferCounter = 0f;
+        coyoteTimeCounter = 0f;
     }
+}
 
     private void CancelJump()
     {
@@ -187,7 +206,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void CheckGrounded()
     {
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, playerData.GroundCheckRadius, playerData.GroundLayer);
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, playerData.GroundCheckRadius, playerData.GroundLayer) ||
+                 Physics2D.OverlapCircle(groundCheck.position, playerData.GroundCheckRadius, LayerMask.GetMask("Bouncy"));
     }
 
     private void UpdateJumpBuffer()

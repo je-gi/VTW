@@ -1,36 +1,39 @@
 using UnityEngine;
-using System.Collections;
 
 public class FlowerAnimationControl : MonoBehaviour
 {
     private Animator animator;
+    public float checkDistance = 1.0f;
+    private LayerMask layerMask;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        layerMask = (1 << LayerMask.NameToLayer("playableground")) | (1 << LayerMask.NameToLayer("bouncy"));
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
-        if (collision.CompareTag("Bouncy"))
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, checkDistance, layerMask);
+        Debug.DrawLine(transform.position, transform.position + Vector3.down * checkDistance, Color.red);
+
+        if (hit.collider != null)
         {
-            animator.SetBool("isActivated", true);
+            if (hit.collider.gameObject.layer == LayerMask.NameToLayer("bouncy"))
+            {
+                animator.SetBool("isActivated", true);
+                animator.SetBool("isDeactivated", false);
+            }
+            else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("playableground"))
+            {
+                animator.SetBool("isActivated", false);
+                animator.SetBool("isDeactivated", true);
+            }
         }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Bouncy"))
+        else
         {
-            StartCoroutine(WaitBeforeDeactivating());
+            animator.SetBool("isActivated", false);
+            animator.SetBool("isDeactivated", true);
         }
-    }
-
-    IEnumerator WaitBeforeDeactivating()
-    {
-        // Wartet für 0.2 Sekunden, um die Glowing Animation noch kurz weiterlaufen zu lassen
-        yield return new WaitForSeconds(0.5f);
-        animator.SetBool("isActivated", false);
-        animator.Play("Deactivated");
     }
 }

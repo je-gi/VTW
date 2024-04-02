@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dfc6724a9f79fe2488ec3d3d1ba59eb8
+guid: f01f53689b4e11c408f7e44fac048cc6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -110,7 +110,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: flower glow activated 16x16_0
+      name: FlowerGlowingEmission_0
       rect:
         serializedVersion: 2
         x: 0
@@ -124,14 +124,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a64fb0905daec9c438bab4ebf8236208
-      internalID: 809019175
+      spriteID: 2d62c252171fa694e862029b4d212438
+      internalID: -173327479
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower glow activated 16x16_1
+      name: FlowerGlowingEmission_1
       rect:
         serializedVersion: 2
         x: 16
@@ -145,14 +145,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f9bf7f749c3b10b429d4aef8b76340cb
-      internalID: 275067515
+      spriteID: 261a906b0576d0a45aec5203c749670e
+      internalID: 842800807
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower glow activated 16x16_2
+      name: FlowerGlowingEmission_2
       rect:
         serializedVersion: 2
         x: 32
@@ -166,14 +166,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 65d1d43790d906143b4064ad40ed8b55
-      internalID: 506733436
+      spriteID: cad8fcb1ed4c496498309e5e3c9b9d12
+      internalID: 2000971412
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower glow activated 16x16_3
+      name: FlowerGlowingEmission_3
       rect:
         serializedVersion: 2
         x: 48
@@ -187,14 +187,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 89b8dda8f423cee418a41cf25c845682
-      internalID: 442341319
+      spriteID: 807f12d5e00df4f4d8a05ddbb623e34b
+      internalID: 1671111084
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower glow activated 16x16_4
+      name: FlowerGlowingEmission_4
       rect:
         serializedVersion: 2
         x: 64
@@ -208,14 +208,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0748c530904c7514e8fb9d1adbf6140a
-      internalID: 141003346
+      spriteID: 8519250302f5b874683d99851cd80e96
+      internalID: 1947079463
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower glow activated 16x16_5
+      name: FlowerGlowingEmission_5
       rect:
         serializedVersion: 2
         x: 80
@@ -229,14 +229,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f910fff582418a4090aef7ecf9149c4
-      internalID: 1362339096
+      spriteID: 944c82262be5f6147b086d7d1b58f429
+      internalID: 409958477
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower glow activated 16x16_6
+      name: FlowerGlowingEmission_6
       rect:
         serializedVersion: 2
         x: 96
@@ -250,14 +250,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 33f234b38bae50f4787bbc74f17686da
-      internalID: -222546293
+      spriteID: 4b3297e93e2e6ca4cbae1aed3194dddb
+      internalID: -965666968
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower glow activated 16x16_7
+      name: FlowerGlowingEmission_7
       rect:
         serializedVersion: 2
         x: 112
@@ -271,14 +271,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 52e0bf3a512aca942b8c5fdcfa7a0208
-      internalID: -1488261391
+      spriteID: 9f2bead06fe9add42a0225219d27da37
+      internalID: -1737607480
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower glow activated 16x16_8
+      name: FlowerGlowingEmission_8
       rect:
         serializedVersion: 2
         x: 128
@@ -292,14 +292,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d77fb670c8c3a0145abf96aee1a8ef93
-      internalID: -1952198150
+      spriteID: 131697808a2a7354f9bbaeb7503dbac0
+      internalID: 1890246131
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: flower glow activated 16x16_9
+      name: FlowerGlowingEmission_9
       rect:
         serializedVersion: 2
         x: 144
@@ -313,8 +313,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: be006c4001ba10a43b3de66c9cf9fc0c
-      internalID: 1423302793
+      spriteID: 017a7c93d67fe11458415893088fe9d0
+      internalID: -27868564
       vertices: []
       indices: 
       edges: []
@@ -330,16 +330,16 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      flower glow activated 16x16_0: 809019175
-      flower glow activated 16x16_1: 275067515
-      flower glow activated 16x16_2: 506733436
-      flower glow activated 16x16_3: 442341319
-      flower glow activated 16x16_4: 141003346
-      flower glow activated 16x16_5: 1362339096
-      flower glow activated 16x16_6: -222546293
-      flower glow activated 16x16_7: -1488261391
-      flower glow activated 16x16_8: -1952198150
-      flower glow activated 16x16_9: 1423302793
+      FlowerGlowingEmission_0: -173327479
+      FlowerGlowingEmission_1: 842800807
+      FlowerGlowingEmission_2: 2000971412
+      FlowerGlowingEmission_3: 1671111084
+      FlowerGlowingEmission_4: 1947079463
+      FlowerGlowingEmission_5: 409958477
+      FlowerGlowingEmission_6: -965666968
+      FlowerGlowingEmission_7: -1737607480
+      FlowerGlowingEmission_8: 1890246131
+      FlowerGlowingEmission_9: -27868564
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
