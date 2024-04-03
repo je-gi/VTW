@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class FlowerAnimationControl : MonoBehaviour
+public class BlueFlowerAnimationControl : MonoBehaviour
 {
     private Animator animator;
     public float checkDistance = 1.0f;
