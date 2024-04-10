@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private TrailRenderer tr;
 
     private Rigidbody2D rb;
-    private PlayerInput playerInput;
+    private PlayerInput _playerInput;
     private bool isGrounded = false;
     private bool isClimbing = false;
     private bool climbInput = false;
@@ -32,15 +32,15 @@ public class PlayerMovement : MonoBehaviour
 
     private void InitializeControls()
     {
-        playerInput = GetComponent<PlayerInput>();
+        _playerInput = GetComponent<PlayerInput>();
 
-        playerInput.actions["Movement"].performed += ctx => OnMovementPerformed(ctx);
-        playerInput.actions["Movement"].canceled += ctx => OnMovementCanceled(ctx);
-        playerInput.actions["Jump"].started += _ => AttemptJump();
-        playerInput.actions["Jump"].canceled += _ => CancelJump();
-        playerInput.actions["Dash"].performed += _ => StartCoroutine(Dash());
-        playerInput.actions["Climb"].performed += _ => climbInput = true;
-        playerInput.actions["Climb"].canceled += _ => climbInput = false;
+        _playerInput.actions["Movement"].performed += ctx => OnMovementPerformed(ctx);
+        _playerInput.actions["Movement"].canceled += ctx => OnMovementCanceled(ctx);
+        _playerInput.actions["Jump"].started += _ => AttemptJump();
+        _playerInput.actions["Jump"].canceled += _ => CancelJump();
+        _playerInput.actions["Dash"].performed += _ => StartCoroutine(Dash());
+        _playerInput.actions["Climb"].performed += _ => climbInput = true;
+        _playerInput.actions["Climb"].canceled += _ => climbInput = false;
     }
 
     private void OnMovementPerformed(InputAction.CallbackContext context)
@@ -94,7 +94,7 @@ private void OnCollisionExit2D(Collision2D collision)
 
     private void AttemptJump()
     {
-        Debug.Log($"Attempting to Jump. Current Action Map: {playerInput.currentActionMap.name}");
+        Debug.Log($"Attempting to Jump. Current Action Map: {_playerInput.currentActionMap.name}");
         if (isClimbing) PerformWallJump();
         else Jump();
     }
@@ -199,7 +199,7 @@ private void OnCollisionExit2D(Collision2D collision)
     {
         if (isClimbing)
         {
-            float verticalMovement = playerInput.actions["Movement"].ReadValue<Vector2>().y;
+            float verticalMovement = _playerInput.actions["Movement"].ReadValue<Vector2>().y;
             rb.velocity = new Vector2(rb.velocity.x, verticalMovement * playerData.WallClimbSpeed);
         }
     }
@@ -212,7 +212,7 @@ private void OnCollisionExit2D(Collision2D collision)
 
     private void UpdateJumpBuffer()
     {
-        if (playerInput.actions["Jump"].triggered && !isClimbing)
+        if (_playerInput.actions["Jump"].triggered && !isClimbing)
         {
             jumpBufferCounter = playerData.BufferedJumpTime;
         }
@@ -236,6 +236,6 @@ private void OnCollisionExit2D(Collision2D collision)
 
     private void OnDisable()
     {
-        playerInput.actions.Disable();
+        _playerInput.actions.Disable();
     }
 }

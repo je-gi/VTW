@@ -2,16 +2,13 @@ using UnityEngine;
 
 public class ClimbableLight : MonoBehaviour
 {
-    private CircleCollider2D auraCollider;
     public bool isClimbable = false;
+    public AudioClip LightCollisionSound;
+    private AudioSource audioSource;
 
     private void Awake()
     {
-        auraCollider = GetComponent<CircleCollider2D>();
-        if (auraCollider == null)
-        {
-            Debug.LogError("Circle Collider 2D not found on ClimbableLight.");
-        }
+        audioSource = GetComponent<AudioSource>();
     }
 
     public bool IsClimbable()
@@ -26,6 +23,7 @@ public class ClimbableLight : MonoBehaviour
             collision.gameObject.layer = LayerMask.NameToLayer("climbable");
             isClimbable = true;
             Debug.Log($"Made {collision.gameObject.name} climbable.");
+            audioSource.PlayOneShot(LightCollisionSound);
         }
     }
 

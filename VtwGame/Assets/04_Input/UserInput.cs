@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class InputManager : MonoBehaviour
+public class UserInput : MonoBehaviour
 {
-public static InputManager instance;
-public bool MenuOpenInput { get; private set;}
+public static UserInput instance;
 
+public bool MenuOpenInput { get; private set;}
 public bool MenuCloseInput { get; private set;}
+
 public static PlayerInput _playerInput;
 private InputAction _MenuOpenAction;
 private InputAction _MenuCloseAction;

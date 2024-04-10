@@ -2,14 +2,13 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 public class GrabObjects : MonoBehaviour
 {
     [SerializeField] private PlayerData playerData;
+    private PlayerInput _playerInput;
     [SerializeField] private Transform grabPoint;
     [SerializeField] private Transform rayPoint;
     [SerializeField] private LayerMask passableLayer;
-
 
     private GameObject grabbedObject;
     private bool isGrabbing;
@@ -17,26 +16,29 @@ public class GrabObjects : MonoBehaviour
     private PlayerControls controls;
     private Rigidbody2D rbGrabbedObject;
 
-
     private void Awake()
     {
         controls = new PlayerControls();
-        controls.Player.Grab.performed += _ => ToggleGrab();
-        controls.Player.Throw.performed += _ => ThrowObject();
+        InitializeControls();
     }
 
+    private void InitializeControls()
+    {
+        _playerInput = GetComponent<PlayerInput>();
+
+        _playerInput.actions["Grab"].performed += ctx => ToggleGrab();
+        _playerInput.actions["Throw"].performed += ctx => ThrowObject();
+    }
 
     private void OnEnable()
     {
         controls.Enable();
     }
 
-
     private void OnDisable()
     {
         controls.Disable();
     }
-
 
     private void Update()
     {
@@ -45,7 +47,6 @@ public class GrabObjects : MonoBehaviour
             rbGrabbedObject.MovePosition(grabPoint.position);
         }
     }
-
 
     private void ToggleGrab()
     {
@@ -73,7 +74,6 @@ public class GrabObjects : MonoBehaviour
         }
     }
 
-
     private void ThrowObject()
     {
         if (isGrabbing && grabbedObject != null)
@@ -81,13 +81,10 @@ public class GrabObjects : MonoBehaviour
             grabbedObject.transform.SetParent(null);
             rbGrabbedObject.gravityScale = 9f;
 
-
             Vector2 throwDirection = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
             rbGrabbedObject.AddForce(new Vector2(throwDirection.x * playerData.throwForce, playerData.throwForce * 2f), ForceMode2D.Impulse);
 
-
             StartCoroutine(StopObjectInAir(rbGrabbedObject, 0.5f));
-
 
             isGrabbing = false;
             grabbedObject = null;
@@ -95,11 +92,9 @@ public class GrabObjects : MonoBehaviour
         }
     }
 
-
     private IEnumerator StopObjectInAir(Rigidbody2D rb, float delay)
     {
         yield return new WaitForSeconds(delay);
-
 
         if (rb != null)
         {
@@ -107,7 +102,6 @@ public class GrabObjects : MonoBehaviour
             rb.gravityScale = 0;
         }
     }
-
 
     private void StopGrab()
     {
@@ -136,7 +130,6 @@ public class GrabObjects : MonoBehaviour
             canGrab = true;
         }
     }
-
 
     private void ReleaseObject()
     {

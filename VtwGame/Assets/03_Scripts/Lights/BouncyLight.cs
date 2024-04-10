@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class BouncyLight : MonoBehaviour
 {
-    private CircleCollider2D auraCollider;
+    public AudioClip LightCollisionSound;
+    private AudioSource audioSource;
 
     private void Awake()
     {
-        auraCollider = GetComponent<CircleCollider2D>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -15,6 +16,7 @@ public class BouncyLight : MonoBehaviour
         {
             collision.gameObject.layer = LayerMask.NameToLayer("bouncy");
             Debug.Log($"Made {collision.gameObject.name} bouncy.");
+            audioSource.PlayOneShot(LightCollisionSound);
         }
     }
 

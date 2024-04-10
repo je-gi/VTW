@@ -8,6 +8,8 @@ public class PauseMenuManager : MonoBehaviour
 {
   [SerializeField] private GameObject _pauseMenuCanvasGO;
   [SerializeField] private GameObject _settingsMenuCanvasGO;
+  [SerializeField] private GameObject _audioSettingsMenuCanvasGO;
+  [SerializeField] private GameObject _keyboardSettingsMenuCanvasGO;
 
   [Header("Input Action Asset to deactivate on Pause")]
   [SerializeField] private PlayerInput playerInput;
@@ -15,6 +17,8 @@ public class PauseMenuManager : MonoBehaviour
   [Header("First selected Options")]
   [SerializeField] private GameObject _pauseMenuFirst;
   [SerializeField] private GameObject _settingsMenuFirst;
+  [SerializeField] private GameObject _audioSettingsMenuFirst;
+  [SerializeField] private GameObject _keyboardSettingsMenuFirst;
   private bool isPaused;
 
 
@@ -22,19 +26,21 @@ public class PauseMenuManager : MonoBehaviour
   {
     _pauseMenuCanvasGO.SetActive(false);
     _settingsMenuCanvasGO.SetActive(false);
+    _audioSettingsMenuCanvasGO.SetActive(false);
+    _keyboardSettingsMenuCanvasGO.SetActive(false);
   }
 
 
   private void Update()
   {
-    if (InputManager.instance.MenuOpenInput)
+    if (UserInput.instance.MenuOpenInput)
     {
       if (!isPaused)
       {
         Pause();
       }
     }
-      else if (InputManager.instance.MenuCloseInput)
+      else if (UserInput.instance.MenuCloseInput)
       {
         if (isPaused)
         Unpause();
@@ -51,22 +57,17 @@ public class PauseMenuManager : MonoBehaviour
     isPaused = true;
     Time.timeScale = 0f;
     OpenPauseMenu();
-    InputManager._playerInput.SwitchCurrentActionMap("UI");
+    UserInput._playerInput.SwitchCurrentActionMap("UI");
   }
-
-
-
 
   public void Unpause()
   {
     isPaused = false;
     Time.timeScale = 1f;
     CloseAllMenus();
-    InputManager._playerInput.SwitchCurrentActionMap("Player");
+    UserInput._playerInput.SwitchCurrentActionMap("Player");
   }
   #endregion
-
-
 
 
   #region Canvas Activations
@@ -74,6 +75,8 @@ public class PauseMenuManager : MonoBehaviour
   {
     _pauseMenuCanvasGO.SetActive(true);
     _settingsMenuCanvasGO.SetActive(false);
+    _audioSettingsMenuCanvasGO.SetActive(false);
+    _keyboardSettingsMenuCanvasGO.SetActive(false);
 
     EventSystem.current.SetSelectedGameObject(_pauseMenuFirst);
   }
@@ -83,13 +86,37 @@ public class PauseMenuManager : MonoBehaviour
   {
     _pauseMenuCanvasGO.SetActive(false);
     _settingsMenuCanvasGO.SetActive(true);
+    _audioSettingsMenuCanvasGO.SetActive(false);
+    _keyboardSettingsMenuCanvasGO.SetActive(false);
 
     EventSystem.current.SetSelectedGameObject(_settingsMenuFirst);
+  }
+
+  private void OpenAudioSettingsMenuHandle()
+  {
+    _pauseMenuCanvasGO.SetActive(false);
+    _settingsMenuCanvasGO.SetActive(false);
+    _audioSettingsMenuCanvasGO.SetActive(true);
+    _keyboardSettingsMenuCanvasGO.SetActive(false);
+
+    EventSystem.current.SetSelectedGameObject(_audioSettingsMenuFirst);
+  }
+
+  private void OpenKeyboardSettingsMenuHandle()
+  {
+    _pauseMenuCanvasGO.SetActive(false);
+    _settingsMenuCanvasGO.SetActive(false);
+    _audioSettingsMenuCanvasGO.SetActive(false);
+    _keyboardSettingsMenuCanvasGO.SetActive(true);
+
+    EventSystem.current.SetSelectedGameObject(_keyboardSettingsMenuFirst);
   }
   private void CloseAllMenus()
   {
     _pauseMenuCanvasGO.SetActive(false);
     _settingsMenuCanvasGO.SetActive(false);
+    _audioSettingsMenuCanvasGO.SetActive(false);
+    _keyboardSettingsMenuCanvasGO.SetActive(false);
 
     EventSystem.current.SetSelectedGameObject(null);
   }
@@ -100,6 +127,16 @@ public class PauseMenuManager : MonoBehaviour
   public void OnSettingsPress()
   {
     OpenSettingsMenuHandle();
+  }
+
+  public void OnAudioSettingsPress()
+  {
+    OpenAudioSettingsMenuHandle();
+  }
+
+  public void OnKeyboardSettingsPress()
+  {
+    OpenKeyboardSettingsMenuHandle();
   }
 
 
