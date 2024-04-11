@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour
 {
@@ -33,19 +34,19 @@ public class PauseMenuManager : MonoBehaviour
 
   private void Update()
   {
-    if (UserInput.instance.MenuOpenInput)
+    if (InputManager.instance.MenuOpenInput)
     {
       if (!isPaused)
       {
         Pause();
       }
     }
-      else if (UserInput.instance.MenuCloseInput)
-      {
-        if (isPaused)
+    else if (InputManager.instance.MenuCloseInput)
+    {
+      if (isPaused)
         Unpause();
-      }
-    
+    }
+
   }
 
 
@@ -57,7 +58,7 @@ public class PauseMenuManager : MonoBehaviour
     isPaused = true;
     Time.timeScale = 0f;
     OpenPauseMenu();
-    UserInput._playerInput.SwitchCurrentActionMap("UI");
+    InputManager._playerInput.SwitchCurrentActionMap("UI");
   }
 
   public void Unpause()
@@ -65,7 +66,7 @@ public class PauseMenuManager : MonoBehaviour
     isPaused = false;
     Time.timeScale = 1f;
     CloseAllMenus();
-    UserInput._playerInput.SwitchCurrentActionMap("Player");
+    InputManager._playerInput.SwitchCurrentActionMap("Player");
   }
   #endregion
 
@@ -144,6 +145,16 @@ public class PauseMenuManager : MonoBehaviour
   {
     Unpause();
   }
+
+  public void OnQuitButton()
+  {
+    Application.Quit();
+  }
+
+      public void OnMainMenuButton()
+    {
+        SceneManager.LoadScene(0);
+    }
   #endregion
 
 

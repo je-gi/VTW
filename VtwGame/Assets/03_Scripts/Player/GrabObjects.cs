@@ -13,31 +13,36 @@ public class GrabObjects : MonoBehaviour
     private GameObject grabbedObject;
     private bool isGrabbing;
     private bool canGrab = true;
-    private PlayerControls controls;
     private Rigidbody2D rbGrabbedObject;
 
     private void Awake()
     {
-        controls = new PlayerControls();
-        InitializeControls();
-    }
-
-    private void InitializeControls()
-    {
         _playerInput = GetComponent<PlayerInput>();
-
-        _playerInput.actions["Grab"].performed += ctx => ToggleGrab();
-        _playerInput.actions["Throw"].performed += ctx => ThrowObject();
     }
 
     private void OnEnable()
     {
-        controls.Enable();
+        // Registriere die Event-Handler
+        _playerInput.actions["Grab"].performed += OnGrabPerformed;
+        _playerInput.actions["Throw"].performed += OnThrowPerformed;
     }
 
     private void OnDisable()
     {
-        controls.Disable();
+        // Hebe die Registrierung der Event-Handler auf
+        _playerInput.actions["Grab"].performed -= OnGrabPerformed;
+        _playerInput.actions["Throw"].performed -= OnThrowPerformed;
+    }
+
+    private void OnGrabPerformed(InputAction.CallbackContext context)
+    {
+        ToggleGrab();
+    }
+
+    private void OnThrowPerformed(InputAction.CallbackContext context)
+    {
+        ThrowObject();
+        SoundManager.instance.PlayThrowSound();
     }
 
     private void Update()

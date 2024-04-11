@@ -16,6 +16,8 @@ public class RespawnController : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             collision.transform.position = respawnPoint.position;
+
+            SoundManager.instance.PlayDeathSound();
         }
     }
 }

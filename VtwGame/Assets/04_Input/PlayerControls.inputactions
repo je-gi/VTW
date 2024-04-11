@@ -586,17 +586,6 @@
                 },
                 {
                     "name": "",
-                    "id": "fadcd044-bcc0-4ae2-883b-5c2503489de8",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Point",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "626d81eb-5747-48d5-81be-f1eb08a1efda",
                     "path": "<Pen>/position",
                     "interactions": "",

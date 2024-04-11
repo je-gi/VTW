@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 
-public class UserInput : MonoBehaviour
+public class InputManager : MonoBehaviour
 {
-public static UserInput instance;
+public static InputManager instance;
 
 public bool MenuOpenInput { get; private set;}
 public bool MenuCloseInput { get; private set;}
