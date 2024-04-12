@@ -92,9 +92,9 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void OnPlayButton()
-    {
-        Invoke(nameof(LoadNextScene), 0.6f);
-    }
+{
+    LoadNextScene();
+}
 
     public void OnQuitButton()
     {

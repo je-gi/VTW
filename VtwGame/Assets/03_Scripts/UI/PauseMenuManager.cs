@@ -154,6 +154,7 @@ public class PauseMenuManager : MonoBehaviour
       public void OnMainMenuButton()
     {
         SceneManager.LoadScene(0);
+        Time.timeScale = 1f;
     }
   #endregion
 
