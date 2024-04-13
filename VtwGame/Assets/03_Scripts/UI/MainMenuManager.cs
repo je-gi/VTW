@@ -1,43 +1,40 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+
 public class MainMenuManager : MonoBehaviour
 {
-    #region Serialized Fields
-    [Header("Canvas")]
     [SerializeField] private GameObject mainMenuCanvasGO;
     [SerializeField] private GameObject settingsMenuCanvasGO;
     [SerializeField] private GameObject audioSettingsMenuCanvasGO;
     [SerializeField] private GameObject keyboardSettingsMenuCanvasGO;
 
-    [Header("First selected Options")]
     [SerializeField] private GameObject mainMenuFirst;
     [SerializeField] private GameObject settingsMenuFirst;
     [SerializeField] private GameObject audioSettingsMenuFirst;
     [SerializeField] private GameObject keyboardSettingsMenuFirst;
 
-    [Header("Overlay")]
     [SerializeField] private Image overlayImage;
     [SerializeField] private float fadeDuration = .5f;
 
-    [Header("Background Music")]
     [SerializeField] private AudioSource backgroundMusic;
     [SerializeField] private float musicFadeDuration = 1f;
     [SerializeField] private float targetMusicVolume = 0.2f;
-    #endregion
 
     private void Start()
     {
+        StartCoroutine(FadeInOverlayAndMusic());
         MainMenu();
     }
+
     private void MainMenu()
     {
         SetMenuVisibility(mainMenuCanvasGO);
         EventSystem.current.SetSelectedGameObject(mainMenuFirst);
     }
+
     private void SetMenuVisibility(GameObject activeCanvas)
     {
         mainMenuCanvasGO.SetActive(activeCanvas == mainMenuCanvasGO);
@@ -46,7 +43,6 @@ public class MainMenuManager : MonoBehaviour
         keyboardSettingsMenuCanvasGO.SetActive(activeCanvas == keyboardSettingsMenuCanvasGO);
     }
 
-    #region Menu Visibility
     private void OpenSettingsMenu()
     {
         SetMenuVisibility(settingsMenuCanvasGO);
@@ -64,14 +60,11 @@ public class MainMenuManager : MonoBehaviour
         SetMenuVisibility(keyboardSettingsMenuCanvasGO);
         EventSystem.current.SetSelectedGameObject(keyboardSettingsMenuFirst);
     }
-    #endregion
 
-    #region UI Buttons
     public void OnSettingsPress()
     {
         OpenSettingsMenu();
     }
-
 
     public void OnAudioSettingsPress()
     {
@@ -83,12 +76,10 @@ public class MainMenuManager : MonoBehaviour
         OpenKeyboardSettingsMenu();
     }
 
-
     public void OnSettingsBackPress()
     {
         MainMenu();
     }
-
 
     public void OnAudioSettingsBackPress()
     {
@@ -110,42 +101,42 @@ public class MainMenuManager : MonoBehaviour
     {
         Application.Quit();
     }
-    #endregion
 
-    #region Transition to Next Scene
     private IEnumerator TransitionToNextScene()
     {
-        float elapsedTime = 0f;
-        Color originalColor = overlayImage.color;
-        Color targetColor = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
-
-        while (elapsedTime < fadeDuration)
-        {
-            float normalizedTime = elapsedTime / fadeDuration;
-            overlayImage.color = Color.Lerp(originalColor, targetColor, normalizedTime);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        overlayImage.color = targetColor;
-
-        elapsedTime = 0f;
-        float originalVolume = backgroundMusic.volume;
-
-        while (elapsedTime < musicFadeDuration)
-        {
-            float normalizedTime = elapsedTime / musicFadeDuration;
-            backgroundMusic.volume = Mathf.Lerp(originalVolume, targetMusicVolume, normalizedTime);
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-
-        backgroundMusic.volume = targetMusicVolume;
-
+        StartCoroutine(FadeOutOverlayAndMusic());
+        yield return new WaitForSeconds(Mathf.Max(fadeDuration, musicFadeDuration));
         SceneManager.LoadScene(1);
     }
-    #endregion
+
+    private IEnumerator FadeInOverlayAndMusic()
+    {
+        Color transparentColor = new Color(overlayImage.color.r, overlayImage.color.g, overlayImage.color.b, 0);
+        float elapsedTime = 0f;
+        while (elapsedTime < fadeDuration)
+        {
+            overlayImage.color = Color.Lerp(overlayImage.color, transparentColor, elapsedTime / fadeDuration);
+            backgroundMusic.volume = Mathf.Lerp(0, targetMusicVolume, elapsedTime / musicFadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        overlayImage.color = transparentColor;
+        backgroundMusic.volume = targetMusicVolume;
+    }
+
+    private IEnumerator FadeOutOverlayAndMusic()
+    {
+        Color opaqueColor = new Color(overlayImage.color.r, overlayImage.color.g, overlayImage.color.b, 1);
+        float elapsedTime = 0f;
+        float startVolume = backgroundMusic.volume;
+        while (elapsedTime < fadeDuration)
+        {
+            overlayImage.color = Color.Lerp(overlayImage.color, opaqueColor, elapsedTime / fadeDuration);
+            backgroundMusic.volume = Mathf.Lerp(startVolume, 0, elapsedTime / musicFadeDuration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        overlayImage.color = opaqueColor;
+        backgroundMusic.volume = 0;
+    }
 }
-
-
-
