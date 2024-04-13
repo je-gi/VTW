@@ -18,6 +18,15 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] private GameObject settingsMenuFirst;
     [SerializeField] private GameObject audioSettingsMenuFirst;
     [SerializeField] private GameObject keyboardSettingsMenuFirst;
+
+    [Header("Overlay")]
+    [SerializeField] private Image overlayImage;
+    [SerializeField] private float fadeDuration = .5f;
+
+    [Header("Background Music")]
+    [SerializeField] private AudioSource backgroundMusic;
+    [SerializeField] private float musicFadeDuration = 1f;
+    [SerializeField] private float targetMusicVolume = 0.2f;
     #endregion
 
     private void Start()
@@ -92,9 +101,10 @@ public class MainMenuManager : MonoBehaviour
     }
 
     public void OnPlayButton()
-{
-    LoadNextScene();
-}
+    {
+        PlayerPrefs.SetInt("IsIntroShown", 0);
+        StartCoroutine(TransitionToNextScene());
+    }
 
     public void OnQuitButton()
     {
@@ -102,9 +112,36 @@ public class MainMenuManager : MonoBehaviour
     }
     #endregion
 
-    #region Delay Load Scene
-    private void LoadNextScene()
+    #region Transition to Next Scene
+    private IEnumerator TransitionToNextScene()
     {
+        float elapsedTime = 0f;
+        Color originalColor = overlayImage.color;
+        Color targetColor = new Color(originalColor.r, originalColor.g, originalColor.b, 1f);
+
+        while (elapsedTime < fadeDuration)
+        {
+            float normalizedTime = elapsedTime / fadeDuration;
+            overlayImage.color = Color.Lerp(originalColor, targetColor, normalizedTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        overlayImage.color = targetColor;
+
+        elapsedTime = 0f;
+        float originalVolume = backgroundMusic.volume;
+
+        while (elapsedTime < musicFadeDuration)
+        {
+            float normalizedTime = elapsedTime / musicFadeDuration;
+            backgroundMusic.volume = Mathf.Lerp(originalVolume, targetMusicVolume, normalizedTime);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        backgroundMusic.volume = targetMusicVolume;
+
         SceneManager.LoadScene(1);
     }
     #endregion

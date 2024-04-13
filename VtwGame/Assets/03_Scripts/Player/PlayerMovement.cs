@@ -35,16 +35,22 @@ public class PlayerMovement : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        CheckGrounded();
-        if (!isClimbing) Move();
-        else if (climbInput) Climb();
+        if (Time.timeScale > 0f)
+        {
+            CheckGrounded();
+            if (!isClimbing) Move();
+            else if (climbInput) Climb();
+        }
     }
     private void Update()
     {
-        UpdateJumpBuffer();
-        UpdateCoyoteTime();
-        CheckClimbingAbility();
-        AttemptEdgeClimb();
+        if (Time.timeScale > 0f)
+        {
+            UpdateJumpBuffer();
+            UpdateCoyoteTime();
+            CheckClimbingAbility();
+            AttemptEdgeClimb();
+        }
     }
     #endregion
 
@@ -164,7 +170,10 @@ public class PlayerMovement : MonoBehaviour
     #region Dash
     private void OnDashPerformed(InputAction.CallbackContext context)
     {
-        StartCoroutine(Dash());
+        if (Time.timeScale > 0f)
+        {
+            StartCoroutine(Dash());
+        }
     }
     private IEnumerator Dash()
     {
