@@ -1,10 +1,10 @@
-# Luxpera: Path of the Lightbringer
+# Luxpera: Path of Light
 
 **April 2024**
 
 ## Theme & Target Audience
 
-Luxpera: Path of the Lightbringer invites players to step into the shoes of Lux, a solitary beacon of hope in a world engulfed by shadows. This enthralling journey tasks adventurers with the critical mission of piercing through the encroaching darkness using their wits, courage, and the transformative power of light itself. Tailored for an audience ranging from puzzle enthusiasts and platformer veterans to those seeking a story-rich gaming experience, "Luxpera" offers depth, strategic engagement, and a narrative that deeply resonates.
+Luxpera: Path of Light invites players to step into the shoes of Lux, a solitary beacon of hope in a world engulfed by shadows. This enthralling journey tasks adventurers with the critical mission of piercing through the encroaching darkness using their wits, courage, and the transformative power of light itself. Tailored for an audience ranging from puzzle enthusiasts and platformer veterans to those seeking a story-rich gaming experience, "Luxpera" offers depth, strategic engagement, and a narrative that deeply resonates.
 
 ## Soundscape
 
