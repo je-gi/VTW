@@ -17,19 +17,24 @@ public class Checkpoint : MonoBehaviour
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            RespawnController.Instance.respawnPoint = transform;
+{
+    Debug.Log("Trigger entered by: " + collision.gameObject.name);
 
-            if (LastActivatedCheckpoint != null && LastActivatedCheckpoint != this)
-            {
-                LastActivatedCheckpoint.DeactivateCheckpoint();
-            }
-            LastActivatedCheckpoint = this;
-            ActivateCheckpoint();
+    if (collision.CompareTag("Player"))
+    {
+        Debug.Log("Player has activated checkpoint: " + this.name);
+        RespawnController.Instance.respawnPoint = transform;
+
+        if (LastActivatedCheckpoint != null && LastActivatedCheckpoint != this)
+        {
+            LastActivatedCheckpoint.DeactivateCheckpoint();
         }
+
+        LastActivatedCheckpoint = this;
+        ActivateCheckpoint();
     }
+}
+
 
     
     public void ActivateCheckpoint()

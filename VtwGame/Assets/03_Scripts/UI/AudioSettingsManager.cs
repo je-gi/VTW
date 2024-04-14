@@ -13,7 +13,7 @@ public class AudioSettingsManager : MonoBehaviour
         SFXVolumeSlider.value = PlayerPrefs.GetFloat("SFXVolume", 0.75f);
         MasterVolumeSlider.value = PlayerPrefs.GetFloat("MasterVolume", 0.75f);
 
-        MainMixer.SetFloat("Music", Mathf.Log10(MusicVolumeSlider.value) * 20);
+        MainMixer.SetFloat("MusicVolume", Mathf.Log10(MusicVolumeSlider.value) * 20);
         MainMixer.SetFloat("SFXVolume", Mathf.Log10(SFXVolumeSlider.value) * 20);
         MainMixer.SetFloat("MasterVolume", Mathf.Log10(MasterVolumeSlider.value) * 20);
 
